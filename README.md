@@ -2,6 +2,6 @@
 
 **Goal**
 
-##January : Amazon feature clear
+1. January : Amazon feature clear
 
-##February : Google feature clear
+2. February : Google feature clear
