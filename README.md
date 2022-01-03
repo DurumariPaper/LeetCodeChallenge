@@ -1,6 +1,7 @@
 # LeetCodeChallenge
 
-Goal
+**Goal**
 
-January : Amazon feature clear
-February : Google feature clear
+##January : Amazon feature clear
+
+##February : Google feature clear
