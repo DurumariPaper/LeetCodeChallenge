@@ -26,6 +26,5 @@ public:
             result += min(leftMax[i], rightMax[i]) - height[i];
         }
         return result;
-    
     }
 };
