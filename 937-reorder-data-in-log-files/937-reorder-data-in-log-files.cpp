@@ -20,13 +20,11 @@ public:
         }
         
         if(i == size1 && j == size2)
-        {
-            int data = strcmp(str1.c_str(), str2.c_str());
-                              
+        {                              
             if(strcmp(str1.c_str(), str2.c_str()) < 0)
                 return true;
             else
-                return false;                
+                return false;                    
         }
         
         if( i < size1)
