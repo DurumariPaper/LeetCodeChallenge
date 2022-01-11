@@ -12,7 +12,7 @@ class Solution {
 public:
     ListNode* reverse(ListNode* head, int k)
     {
-        ListNode* newNode = new ListNode();
+        ListNode* newNode = nullptr;
         ListNode* tail = head;
         
         while(k > 0)
