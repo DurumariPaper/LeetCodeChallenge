@@ -43,6 +43,13 @@ public:
     }
 };
 */
+/*
+class Solution {
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue<int, ListNode*> pq;
+        
+    }
+}*/
 
 
 class Solution {
@@ -60,7 +67,7 @@ public:
             while(itor != NULL)
             {
                 ListNode* temp = itor;
-                mergedList.push_back(new ListNode(itor->val));
+                mergedList.push_back(itor);
                 itor = itor->next;
                 temp->next = NULL;
             }
