@@ -9,49 +9,74 @@
  * };
  */
 
+
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for( ListNode* node : lists)
+        {
+            ListNode* itor = node;
+            while(itor != NULL)
+            {
+                ListNode* temp = itor;
+                pq.push(itor->val);
+                itor = itor->next;
+            }
+        }
+        
+        ListNode* head = new ListNode();
+        ListNode* itor = head;
+        
+        while(!pq.empty())
+        {
+            itor->next = new ListNode(pq.top());
+            itor = itor->next;
+            pq.pop();
+        }
+        
+        return head->next;
+        
+        
+    }
+};
+
 /*
+
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         
-        vector<int> v;
-        ListNode *temp;
-            
-        for(auto &it: lists){
-            temp = it;
-            while(temp){
-                v.push_back(temp->val);
-                temp = temp->next;
+        priority_queue<int, vector<int>, greater<int>>qt ;
+        
+        for(auto&k:lists)
+        {
+            ListNode* tmp = k ;
+            while(tmp!=NULL)
+            {
+                qt.push(tmp->val);
+                tmp=tmp->next ;
             }
-            
         }
         
-        ListNode *ans = new ListNode(0);
-        temp = ans;
+
+        ListNode* ans = new ListNode(0) ;
+        ListNode* temp = ans ;
         
-        sort(v.begin(), v.end());
-        int n = v.size(), i = 0;
-        
-        while(i < n){
-            ans->next = new ListNode(v[i]);
-            ans = ans->next;
-            i++;
+        while( !qt.empty() ) 
+        {
+            ans->next = new ListNode(qt.top());
+            ans=ans->next ;
+            //cout<<qt.top()<<endl;
+            qt.pop();
         }
         
-        return temp->next;
+        return temp->next ;
         
     }
-};
 */
+
 /*
-class Solution {
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        priority_queue<int, ListNode*> pq;
-        
-    }
-}*/
-
-
 class Solution {
 public:
     static bool compare(const ListNode* val1,const ListNode* val2)
@@ -77,10 +102,10 @@ public:
             return NULL;
         
         sort(mergedList.begin(), mergedList.end(), compare);       
-        /*sort( mergedList.begin( ), mergedList.end( ), [ ]( const ListNode* lhs, const ListNode* rhs )
-        {
-           return lhs->val < rhs->val;
-        });*/
+        // sort( mergedList.begin( ), mergedList.end( ), [ ]( const ListNode* lhs, const ListNode* rhs )
+        // {
+        //    return lhs->val < rhs->val;
+        // });
         
         for(int i = 0; i < mergedList.size() - 1; i++)
         {
@@ -90,4 +115,4 @@ public:
         return mergedList[0];
         
     }
-};
+};*/
