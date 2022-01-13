@@ -17,16 +17,8 @@ public:
         while(itor != NULL)
         {
             ListNode* next = itor->next;
-            if(revHead == NULL)
-            {
-                revHead = itor;
-                revHead->next = NULL;
-            }
-            else
-            {
-                itor->next = revHead;
-                revHead = itor;
-            }            
+            itor->next = revHead;
+            revHead = itor;
             itor = next;
         }      
         
