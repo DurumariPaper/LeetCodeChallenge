@@ -49,10 +49,7 @@ class Solution {
 public:
     static bool compare(const ListNode* val1,const ListNode* val2)
     {
-        if(val1->val > val2->val)
-            return false;
-        else
-            return true;
+        return val1->val < val2->val;
     }
     
     ListNode* mergeKLists(vector<ListNode*>& lists) {
@@ -72,12 +69,11 @@ public:
         if(mergedList.size() == 0)
             return NULL;
         
-        //sort(mergedList.begin(), mergedList.end(), compare);
-        
-        sort( mergedList.begin( ), mergedList.end( ), [ ]( const ListNode* lhs, const ListNode* rhs )
+        sort(mergedList.begin(), mergedList.end(), compare);       
+        /*sort( mergedList.begin( ), mergedList.end( ), [ ]( const ListNode* lhs, const ListNode* rhs )
         {
            return lhs->val < rhs->val;
-        });
+        });*/
         
         for(int i = 0; i < mergedList.size() - 1; i++)
         {
