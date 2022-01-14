@@ -1,54 +1,95 @@
 class LRUCache {
 public:
-    list<int> key_list; 
-    unordered_map<int, pair<list<int>::iterator, int>> key_tolist; 
-    int i_size; 
-    int num; 
+    int size;    
+    
+    class ListNode{
+    public:
+        int key, val;
+        ListNode *prev, *next;
+
+        ListNode(int k, int v){
+            key = k;
+            val = v;            
+        }
+    };
+    
+    // head->next will hold the recently added node
+    ListNode *head = new ListNode(-1, -1);
+    
+    // tail->prev will hold the old added node
+    ListNode *tail = new ListNode(-1, -1);
+    unordered_map<int, ListNode*> mp;    
+    
     LRUCache(int capacity) {
-        
-        i_size = capacity; 
-        num =0; 
-        
+        size = capacity;
+        head->next = tail;
+        tail->prev = head;
+    }
+    
+    void addNode(ListNode *newNode){
+        ListNode* temp = head->next;        
+        head->next = newNode;
+        newNode->prev = head;
+        newNode->next = temp;
+        temp->prev = newNode;
+    }
+    
+    void deleteNode(ListNode *delNode){
+        ListNode *delNodePrev = delNode->prev;
+        ListNode *delNodeNext = delNode->next;
+        delNodePrev->next = delNodeNext;
+        delNodeNext->prev = delNodePrev;        
     }
     
     int get(int key) {
-        auto it = key_tolist.find(key);
-        if(it!=key_tolist.end())
-        {
-            //  we have key and update to latest. 
-            int value = (*it).second.second; 
-            key_list.erase((*it).second.first); 
-            key_list.push_front(key); 
-            key_tolist[key] = make_pair(key_list.begin(), value) ;   
-            return value; 
+        if(mp.find(key) != mp.end()){
+            // holding the existing result node
+            ListNode *resNode = mp[key];
+            int res = resNode->val;
+            
+            // delete from map
+            mp.erase(key);
+            
+            // delete the node
+            deleteNode(resNode);
+            
+            // add the node, so it will be recently added node
+            addNode(new ListNode(key, res));
+            
+            // add the key again into map with new address
+            mp[key] = head->next;  
+                
+            return res;
         }
-        else // can't find. 
-        {
-            return -1; 
-        }
-        
+        return -1;
     }
     
-    void put(int key, int value) { 
-        auto it = key_tolist.find(key);         
-        if(it!=key_tolist.end()) // we found this value. just update. 
-        {
-            // remove the previous. then update to latest. 
-
-            key_list.erase((*it).second.first); 
+    void put(int key, int value) {
+        if(mp.find(key) != mp.end()){
+            // holding the existing node
+            ListNode *temp = mp[key];
+            
+            // delete from map
+            mp.erase(key);
+            
+            // delete the node
+            deleteNode(temp);
         }
-        else if(num<i_size)
-        {
-            num++; 
+        if(mp.size() == size){
+            // holding the existing node
+            ListNode *temp = tail->prev;
+            
+            // delete from map            
+            mp.erase(temp->key);
+            
+            // delete the node
+            deleteNode(temp);
         }
-        else
-        {
-            auto it = key_list.back(); 
-            key_tolist.erase(it); // 
-            key_list.pop_back(); 
-        }    
         
-        key_list.push_front(key); 
-        key_tolist[key] = make_pair(key_list.begin(),value);         
-    }    
+        // add the node, so it will be recently added node
+        addNode(new ListNode(key, value));
+        
+        // add the key again into map with new address
+        mp[key] = head->next;
+    }
 };
