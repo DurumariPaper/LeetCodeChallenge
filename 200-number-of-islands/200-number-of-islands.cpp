@@ -9,7 +9,7 @@ class Solution {
 public:
     void findIsland(vector<vector<char>>& grid, int i, int j)
     {
-        visited[i][j] = true;
+        grid[i][j] = '0';
         
         for(int k =0; k < 4; k++)
         {
@@ -46,7 +46,7 @@ public:
         {
             for(int j = 0; j < n; j++)
             {
-                if(visited[i][j] == false && grid[i][j] == '1')
+                if(grid[i][j] == '1')
                 {
                     findIsland(grid, i, j);
                     count++;
