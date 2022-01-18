@@ -2,7 +2,6 @@ class Solution {
     int shortestCount = INT_MAX;
     unordered_map<string, vector<string>> adjList;
     vector<string> currPath;
-    vector<vector<string>> shortestPaths;
 public:
     
     vector<string> getNeighbors(string& word, unordered_set<string>& wordList)
@@ -28,7 +27,6 @@ public:
     {
         if(source == destination)
         {
-            shortestPaths.push_back(currPath);
             if(shortestCount > currPath.size())
             {
                 shortestCount = currPath.size();
