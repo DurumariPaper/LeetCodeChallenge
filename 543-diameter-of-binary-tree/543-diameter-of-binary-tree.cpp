@@ -14,23 +14,12 @@ class Solution {
 public:
     int preorder(TreeNode* root)
     {
-        int left = 0, right = 0;
-        if(root->left)
-        {
-            left = preorder(root->left);
-        }
-        
-        if(root->right)
-        {
-            right = preorder(root->right);
-        }
-        
-               
-        if(left + right > maxPath)
-            maxPath = left + right;
-        
-        int result = max(left,right) + 1;
-        return result;
+        if(root == NULL)
+            return 0;
+        int left = preorder(root->left);
+        int right = preorder(root->right);        
+        maxPath = max(maxPath, left + right);        
+        return max(left,right) + 1;
     }
     
     int diameterOfBinaryTree(TreeNode* root) {
