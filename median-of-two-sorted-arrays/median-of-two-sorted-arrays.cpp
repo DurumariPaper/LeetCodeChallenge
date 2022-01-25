@@ -7,7 +7,14 @@ public:
         int n = nums1.size();
         int m = nums2.size();
         
-        while(i != n && j != m)
+        if(n+m == 0)
+            return 0;
+        
+        int data = n + m;
+        int count = data / 2;
+            
+        int index = 0;
+        while(i != n && j != m && count >= index)
         {
             if(nums1[i] < nums2[j])
             {
@@ -17,25 +24,32 @@ public:
             {
                 result.push_back(nums2[j++]);
             }
+            index++;
         }        
         
-        while(i != n)
+        while(count >= index)
         {
-            result.push_back(nums1[i++]);
-        }
-        while(j != m)
-        {
-            result.push_back(nums2[j++]);
+            while(i != n)
+            {
+                result.push_back(nums1[i++]);
+                index++;
+            }
+            while(j != m)
+            {
+                result.push_back(nums2[j++]);
+                index++;
+            }
+            
         }
         
-        int data = n + m;
+        
         if(data % 2 == 1)
         {
-            return result[data / 2];
+            return result[count];
         }
         else
         {
-            return (result[data / 2 - 1] + result[data / 2]) / 2.0;
+            return (result[count - 1] + result[count]) / 2.0;
         }
         
         
