@@ -1,36 +1,35 @@
 class Solution {
 public:
+    int size = 0;
     void rotate(vector<vector<int>>& matrix) {
-        int size = matrix.size();
-        transpos(matrix, size);
-        flip(matrix, size);
+        size = matrix[0].size();
+        transpose(matrix);
+        flip(matrix);
     }
     
-    void transpos(vector<vector<int>>& matrix, int& size){
-        for(int i = 0; i < size; i++)
+    void transpose(vector<vector<int>>& matrix)
+    {
+        for(int i = 0; i < size ; i++)
         {
-            for(int j = i + 1; j < size; j++)
+            for(int j = i;j < size ; j++)
             {
-                //swap(matrix[i][j], matrix[j][i]);
                 int temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = temp;
-            }    
+            }
         }
     }
     
-    void flip(vector<vector<int>>& matrix, int& size){
-        for(int i = 0; i < size / 2; i++)
+    void flip(vector<vector<int>>& matrix)
+    {
+        for(int i = 0; i < size ; i++)
         {
-            int end = size - i - 1;
-            
-            for(int j = 0; j < size; j++)
+            for(int j = 0;j < size/2 ; j++)
             {
-                //swap(matrix[j][i], matrix[j][end]);
-                int temp = matrix[j][i];
-                matrix[j][i] = matrix[j][end];
-                matrix[j][end] = temp;
-            }    
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][size - j - 1];
+                matrix[i][size - j - 1] = temp;
+            }
         }
     }
 };
