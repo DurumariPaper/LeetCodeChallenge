@@ -1,8 +1,6 @@
 class Solution {
     
-    int x[4] = {-1, 0, 1, 0};
-    int y[4] = { 0, 1, 0,-1};
-    
+    int ref[5] = {-1, 0, 1, 0, -1};    
     int m,n;
     
 public:
@@ -13,8 +11,8 @@ public:
             
             for(int i = 0 ; i < 4 ; i++)
             {
-                int nextX = sr + x[i];
-                int nextY = sc + y[i];
+                int nextX = sr + ref[i];
+                int nextY = sc + ref[i + 1];
                 if(nextX >= 0 && nextX < m && nextY >= 0 && nextY < n)
                     fill(image, nextX, nextY, newColor, originalColor);
             }
