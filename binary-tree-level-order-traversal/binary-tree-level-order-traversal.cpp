@@ -56,7 +56,6 @@ public:
             if (front_node->right) {
                 new_q.push(front_node->right);
             }
-
             if (q.empty()) {
                 q = move(new_q);
                 result.push_back(move(level_n));
