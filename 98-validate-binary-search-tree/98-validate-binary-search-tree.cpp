@@ -9,42 +9,26 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
-/*
 class Solution {
 public:
-    bool validate(TreeNode* root, long min, long max)
-    {
-        if(root == NULL)
+    bool validate(TreeNode* root, TreeNode* low, TreeNode* high) {
+        // Empty trees are valid BSTs.
+        if (root == nullptr) {
             return true;
-        if(min >= root->val || max <= root->val)
-            return false;
-        
-        return validate(root->left, min, root->val) && validate(root->right, root->val, max);
-    }
-    
-    
-    bool isValidBST(TreeNode* root) {
-        return validate(root, LONG_MIN, LONG_MAX);
-    }
-};
+        }
 
-*/
-class Solution {
-public:
-    bool isValidBST(TreeNode* root) {
-       return DFS(root,NULL,NULL);
+        // The current node's value must be between low and high.
+        if ((low != nullptr and root->val <= low->val) or
+            (high != nullptr and root->val >= high->val)) {
+            return false;
+        }
+
+        // The left and right subtree must also be valid.
+        return validate(root->right, root, high) and
+               validate(root->left, low, root);
     }
-    bool DFS(TreeNode* root ,TreeNode* minV,TreeNode* maxV){
-        if(root==NULL){
-            return true;
-        }
-        if(minV && root->val <= minV->val){
-            return false;
-        }
-        if(maxV && root->val >= maxV->val){
-            return false;
-        }
-        return DFS(root->left,minV,root) && DFS(root->right,root,maxV);
+
+    bool isValidBST(TreeNode* root) {
+        return validate(root, nullptr, nullptr);
     }
 };
