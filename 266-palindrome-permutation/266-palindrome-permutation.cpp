@@ -10,26 +10,12 @@ public:
             map[c]++;
         }
         
-        if(size % 2 == 0)
+        int count = 0;
+        for(auto data : map)
         {
-            for(auto data : map)
-            {
-                if(data.second %2 == 1)
-                    return false;
-            }
+            count += data.second % 2;
         }
-        else
-        {
-            int count = 0;
-            for(auto data : map)
-            {
-                if(data.second %2 == 1)
-                    count++;
-                if(count > 1)
-                    return false;
-            }
-        }
-        
-        return true;
+       
+        return count <= 1;
     }
 };
