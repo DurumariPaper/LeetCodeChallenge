@@ -1,30 +1,52 @@
+struct Info
+{
+    int value;
+    int minValue;
+};
+
 class MinStack {
 public:
-    stack<int> st;
-        map<int,int> data;
+    stack<Info> st;
+    int minValue = INT_MAX;
     MinStack() {
         
     }
     
     void push(int val) {
-        st.push(val);
-        data[val]++;
+        Info info;
+        info.value = val;
+        if(st.empty())
+            info.minValue = val;
+        else
+            info.minValue = min(minValue, val);
+        
+        minValue = info.minValue;
+        st.push(info);
+        
     }
     
-    void pop() {
-        int top = st.top();
-        st.pop();
-        data[top]--;
-        if(data[top] == 0)
-            data.erase(top);
+    void pop() 
+    {        
+        st.pop(); 
+        if(st.empty())
+        {
+            minValue = INT_MAX;
+        }
+        else
+        {
+            Info info = st.top();
+            minValue = info.minValue;
+        }
+        
     }
     
     int top() {
-        return st.top();    
+        Info info = st.top();
+        return info.value;
     }
     
     int getMin() {
-        return data.begin()->first;
+        return minValue;
     }
 };
 
