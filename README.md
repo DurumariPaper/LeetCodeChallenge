@@ -2,6 +2,8 @@
 
 **Goal**
 
-1. January : Amazon feature clear
+1. Amazon feature  : clear
 
-2. February : Google feature clear
+2. Google feature : clear
+
+3. Amazon OA samples : in progress
